@@ -35,6 +35,17 @@ public class CxController {
     // curl localhost:8080/legacy/runCommand/whoami
     @PostMapping("legacy/runCommand/{cmd}")
     public String runCommand(@PathVariable String cmd) throws IOException {
+        // Whitelist of allowed commands
+        String[] allowedCommands = {"whoami", "uptime", "ls"};
+        
+        // Check if the provided command is in the whitelist
+        boolean isValidCommand = Arrays.asList(allowedCommands).contains(cmd);
+        
+        if (!isValidCommand) {
+            throw new IllegalArgumentException("Invalid command.");
+        }
+        
+        // Only execute the command if it's valid
         byte[] buf = new byte[1024];
         int len = Runtime.getRuntime().exec(cmd).getInputStream().read(buf);
         return new String(buf, 0, len);
