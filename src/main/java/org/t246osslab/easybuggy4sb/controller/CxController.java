@@ -33,8 +33,6 @@ public class CxController {
     }
 
     // curl localhost:8080/legacy/runCommand/whoami
-    // Can't have command injection without running commands!
-    /*
     @PostMapping("legacy/runCommand/{cmd}")
     public String runCommand(@PathVariable String cmd) throws IOException {
         // Whitelist of allowed commands
@@ -52,7 +50,6 @@ public class CxController {
         int len = Runtime.getRuntime().exec(cmd).getInputStream().read(buf);
         return new String(buf, 0, len);
     }
-    */
 
     @GetMapping("legacy/add")
     public int add(@RequestParam(name = "a") int a, @RequestParam(name = "b") int b) {
@@ -74,3 +71,4 @@ public class CxController {
         return "op2 api";
     }
 }
+
